@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 17, 24, 39;
+  --background-rgb: 249, 250, 251;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prose-like content styling for generated articles */
+.prose-content {
+  @apply text-gray-800 leading-relaxed;
+}
+
+.prose-content h1,
+.prose-content h2,
+.prose-content h3 {
+  @apply font-bold text-gray-900 mt-6 mb-2;
+}
+
+.prose-content h1 { @apply text-xl; }
+.prose-content h2 { @apply text-lg; }
+.prose-content h3 { @apply text-base; }
+
+.prose-content p {
+  @apply mb-4;
+}
+
+.prose-content ul,
+.prose-content ol {
+  @apply pl-5 mb-4 space-y-1;
+}
+
+.prose-content li {
+  @apply list-disc;
+}
+
+.prose-content ol li {
+  @apply list-decimal;
+}
+
+/* Script display */
+.script-line-host {
+  @apply bg-blue-50 border-l-4 border-blue-400 px-4 py-2 rounded-r-lg mb-2;
+}
+
+.script-line-guest {
+  @apply bg-purple-50 border-l-4 border-purple-400 px-4 py-2 rounded-r-lg mb-2;
+}
