@@ -1,15 +1,25 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import UrlInput from '@/components/UrlInput';
 import CharacterSelect from '@/components/CharacterSelect';
 import ProgressBar, { ProgressStep } from '@/components/ProgressBar';
 
-export default function HomePage() {
+function HomePageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [url, setUrl] = useState('');
+
+  // Pre-fill URL from ?url= query param (set by /discover page)
+  useEffect(() => {
+    const paramUrl = searchParams.get('url');
+    if (paramUrl) {
+      setUrl(paramUrl);
+    }
+  }, [searchParams]);
   const [hostSpeakerId, setHostSpeakerId] = useState(3);
   const [guestSpeakerId, setGuestSpeakerId] = useState(2);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -108,6 +118,12 @@ export default function HomePage() {
           URLを入力するだけで<br />
           ラジオ風の解説音声と詳細記事を自動生成
         </p>
+        <Link
+          href="/discover"
+          className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand-500 hover:text-brand-600 transition-colors"
+        >
+          今日のおすすめを見る →
+        </Link>
       </header>
 
       {/* Card */}
@@ -173,5 +189,13 @@ export default function HomePage() {
         <p>生成には1〜3分程度かかります</p>
       </footer>
     </main>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense>
+      <HomePageInner />
+    </Suspense>
   );
 }
